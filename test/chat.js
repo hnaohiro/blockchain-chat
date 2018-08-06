@@ -1,0 +1,79 @@
+let Chat = artifacts.require("Chat");
+
+contract("Chat", function(accounts) {
+  describe("sendText", function() {
+    let chat;
+
+    before(async function() {
+      chat = await Chat.new();
+    });
+
+    it("should get text", async function() {
+      let input = "hoge";
+      await chat.sendText(input);
+
+      let message = await chat.getMessage(0);
+      assert.equal(message[0], accounts[0]);
+      assert.equal(message[1], 0);
+      assert.equal(message[2], input);
+      assert.equal(message[3], "");
+      assert.isAbove(message[4].toNumber(), 0);
+    });
+  });
+
+  describe("sendImage", function() {
+    let chat;
+
+    before(async function() {
+      chat = await Chat.new();
+    });
+
+    it("should get imageUrl", async function() {
+      let imageUrl = "http://localhost/test.jpg";
+      await chat.sendImage(imageUrl);
+
+      let message = await chat.getMessage(0);
+      assert.equal(message[0], accounts[0]);
+      assert.equal(message[1], 1);
+      assert.equal(message[2], "");
+      assert.equal(message[3], imageUrl);
+      assert.isAbove(message[4].toNumber(), 0);
+    });
+  });
+
+  describe("getLength", function() {
+    let chat;
+
+    before(async function() {
+      chat = await Chat.new();
+    });
+
+    it("should return 2", async function() {
+      await chat.sendText("a");
+      await chat.sendText("b");
+
+      let length = await chat.getLength();
+      assert.equal(length, 2);
+    });
+  });
+
+  describe("getMessage", function() {
+    let chat;
+
+    before(async function() {
+      chat = await Chat.new();
+    });
+
+    it("should throw error", async function() {
+      let err = null;
+
+      try {
+        await chat.getMessage(100);
+      } catch (error) {
+        err = error;
+      }
+
+      assert.ok(err instanceof Error);
+    });
+  });
+});

@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "truffle": "truffle"
   },
   "dependencies": {
     "vue": "^2.5.16",
@@ -19,6 +20,7 @@
     "@vue/eslint-config-prettier": "^3.0.0-rc.10",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
+    "truffle": "^4.1.13",
     "vue-template-compiler": "^2.5.16"
   },
   "browserslist": [
