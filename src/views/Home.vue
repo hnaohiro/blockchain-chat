@@ -1,18 +1,22 @@
 <template>
-  <div class="home">
-    <img src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <MessageList />
+    <MessageInput />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import MessageList from "@/components/MessageList";
+import MessageInput from "@/components/MessageInput";
 
 export default {
   name: "home",
   components: {
-    HelloWorld
+    MessageList,
+    MessageInput
+  },
+  mounted() {
+    this.$store.dispatch("fetchMessages");
   }
 };
 </script>
