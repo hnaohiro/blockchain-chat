@@ -10,7 +10,14 @@ contract Chat {
     uint256 timestamp;
   }
 
+  struct User {
+    string name;
+    string avatarUrl;
+  }
+
   Message[] private messages;
+
+  mapping (address => User) private addressToUser;
 
   function sendText(string _text) public {
     Message memory message = Message({
@@ -42,5 +49,15 @@ contract Chat {
     require(_index < getLength());
     Message memory message = messages[_index];
     return (message.owner, message.messageType, message.text, message.imageUrl, message.timestamp);
+  }
+
+  function setUser(string _name, string _avatarUrl) public {
+    addressToUser[msg.sender].name = _name;
+    addressToUser[msg.sender].avatarUrl = _avatarUrl;
+  }
+
+  function getUser() public view returns (string name, string avatarUrl) {
+    User memory user = addressToUser[msg.sender];
+    return (user.name, user.avatarUrl);
   }
 }

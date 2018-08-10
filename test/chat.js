@@ -76,4 +76,67 @@ contract("Chat", function(accounts) {
       assert.ok(err instanceof Error);
     });
   });
+
+  describe("getUser", function() {
+    let chat;
+
+    before(async function() {
+      chat = await Chat.new();
+    });
+
+    it("should be empty string", async function() {
+      let user = await chat.getUser();
+      assert.equal(user[0], "");
+      assert.equal(user[1], "");
+    });
+  });
+
+  describe("setUser", function() {
+    let chat;
+
+    before(async function() {
+      chat = await Chat.new();
+    });
+
+    it("should get name", async function() {
+      const name = "hoge";
+      const avatarUrl = "";
+      await chat.setUser(name, avatarUrl);
+
+      let user = await chat.getUser();
+      assert.equal(user[0], name);
+      assert.equal(user[1], avatarUrl);
+    });
+
+    it("should get avatarUrl", async function() {
+      const name = "";
+      const avatarUrl = "http://localhost/avatar.jpg";
+      await chat.setUser(name, avatarUrl);
+
+      let user = await chat.getUser();
+      assert.equal(user[0], name);
+      assert.equal(user[1], avatarUrl);
+    });
+
+    it("should get name and avatarUrl", async function() {
+      const name = "hoge";
+      const avatarUrl = "http://localhost/avatar.jpg";
+      await chat.setUser(name, avatarUrl);
+
+      let user = await chat.getUser();
+      assert.equal(user[0], name);
+      assert.equal(user[1], avatarUrl);
+    });
+
+    it("should override", async function() {
+      const name1 = "hoge";
+      await chat.setUser(name1, "");
+
+      const name2 = "moge";
+      await chat.setUser(name2, "");
+
+      let user = await chat.getUser();
+      assert.equal(user[0], name2);
+    });
+  });
 });
