@@ -25,7 +25,9 @@ export default new Vuex.Store({
       const length = Number(await contract.methods.getLength().call());
       let messages = new Array(length);
       for (let i = 0; i < length; i++) {
-        messages[i] = await contract.methods.getMessage(i).call();
+        let message = await contract.methods.getMessage(i).call();
+        message.user = await contract.methods.getUser(message.owner).call();
+        messages[i] = message;
       }
       commit("setMessages", messages);
     },
