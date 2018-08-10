@@ -58,8 +58,8 @@ contract Chat {
     addressToUser[msg.sender].avatarUrl = _avatarUrl;
   }
 
-  function getUser() public view returns (string name, string avatarUrl) {
-    User memory user = addressToUser[msg.sender];
+  function getUser(address _address) public view returns (string name, string avatarUrl) {
+    User memory user = addressToUser[_address];
     return (user.name, user.avatarUrl);
   }
 }

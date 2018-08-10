@@ -87,7 +87,7 @@ contract("Chat", function(accounts) {
     });
 
     it("should be empty string", async function() {
-      let user = await chat.getUser();
+      let user = await chat.getUser(accounts[0]);
       assert.equal(user[0], "");
       assert.equal(user[1], "");
     });
@@ -105,7 +105,7 @@ contract("Chat", function(accounts) {
       const avatarUrl = "";
       await chat.setUser(name, avatarUrl);
 
-      let user = await chat.getUser();
+      let user = await chat.getUser(accounts[0]);
       assert.equal(user[0], name);
       assert.equal(user[1], avatarUrl);
     });
@@ -115,7 +115,7 @@ contract("Chat", function(accounts) {
       const avatarUrl = "http://localhost/avatar.jpg";
       await chat.setUser(name, avatarUrl);
 
-      let user = await chat.getUser();
+      let user = await chat.getUser(accounts[0]);
       assert.equal(user[0], name);
       assert.equal(user[1], avatarUrl);
     });
@@ -125,7 +125,7 @@ contract("Chat", function(accounts) {
       const avatarUrl = "http://localhost/avatar.jpg";
       await chat.setUser(name, avatarUrl);
 
-      let user = await chat.getUser();
+      let user = await chat.getUser(accounts[0]);
       assert.equal(user[0], name);
       assert.equal(user[1], avatarUrl);
     });
@@ -137,7 +137,7 @@ contract("Chat", function(accounts) {
       const name2 = "moge";
       await chat.setUser(name2, "");
 
-      let user = await chat.getUser();
+      let user = await chat.getUser(accounts[0]);
       assert.equal(user[0], name2);
     });
   });
