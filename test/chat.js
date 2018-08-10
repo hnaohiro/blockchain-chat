@@ -13,11 +13,12 @@ contract("Chat", function(accounts) {
       await chat.sendText(input);
 
       let message = await chat.getMessage(0);
-      assert.equal(message[0], accounts[0]);
-      assert.equal(message[1], 0);
-      assert.equal(message[2], input);
-      assert.equal(message[3], "");
-      assert.isAbove(message[4].toNumber(), 0);
+      assert.equal(message[0], 1);
+      assert.equal(message[1], accounts[0]);
+      assert.equal(message[2], 0);
+      assert.equal(message[3], input);
+      assert.equal(message[4], "");
+      assert.isAbove(message[5].toNumber(), 0);
     });
   });
 
@@ -33,11 +34,12 @@ contract("Chat", function(accounts) {
       await chat.sendImage(imageUrl);
 
       let message = await chat.getMessage(0);
-      assert.equal(message[0], accounts[0]);
-      assert.equal(message[1], 1);
-      assert.equal(message[2], "");
-      assert.equal(message[3], imageUrl);
-      assert.isAbove(message[4].toNumber(), 0);
+      assert.equal(message[0], 1);
+      assert.equal(message[1], accounts[0]);
+      assert.equal(message[2], 1);
+      assert.equal(message[3], "");
+      assert.equal(message[4], imageUrl);
+      assert.isAbove(message[5].toNumber(), 0);
     });
   });
 

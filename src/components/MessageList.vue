@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="direct-chat-messages">
-      <div class="direct-chat-msg" v-for="message of messages" v-bind:key="message.timestamp">
+      <div class="direct-chat-msg" v-for="message of messages" v-bind:key="message.id">
         <div class="direct-chat-info clearfix">
           <span class="direct-chat-name pull-left">{{ message.owner }}</span>
           <span class="direct-chat-timestamp pull-right">{{ message.timestamp | timestamp2date }}</span>
