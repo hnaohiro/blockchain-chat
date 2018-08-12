@@ -37,6 +37,10 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 
+import IPFS from "ipfs";
+const node = new IPFS({ repo: String(Math.random() + Date.now()) });
+node.once("ready", () => console.log("IPFS node is ready"));
+
 export default {
   name: "config",
   data() {
@@ -49,9 +53,28 @@ export default {
     selectFile(e) {
       e.preventDefault();
       const files = e.target.files;
-      this.uploadFile = files[0];
+      const file = files[0];
 
-      console.log(this.uploadFile);
+      const reader = new FileReader();
+
+      reader.onload = function() {
+        const bytes = new Uint8Array(reader.result);
+        console.log(bytes);
+
+        node.files.add(Buffer.from(bytes), (err, res) => {
+          if (err || !res) {
+            return console.error("ipfs add error", err, res);
+          }
+
+          res.forEach(function(file) {
+            if (file && file.hash) {
+              console.log("successfully stored", file.hash);
+            }
+          });
+        });
+      };
+
+      reader.readAsArrayBuffer(file);
     }
   },
   computed: {

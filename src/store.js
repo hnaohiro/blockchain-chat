@@ -60,7 +60,9 @@ export default new Vuex.Store({
     async sendText({ commit, state, dispatch }) {
       if (state.input.text) {
         const accounts = await web3.eth.getAccounts();
-        await contract.methods.sendText(state.input.text).send({from: accounts[0], gas: 1e6});
+        await contract.methods
+          .sendText(state.input.text)
+          .send({ from: accounts[0], gas: 1e6 });
         commit("setText", "");
         dispatch("fetchMessages");
       } else {
@@ -69,7 +71,9 @@ export default new Vuex.Store({
     },
     async saveUser({ state }) {
       const accounts = await web3.eth.getAccounts();
-      await contract.methods.setUser(state.input.user.name, state.input.user.avatarUrl).send({from: accounts[0], gas: 1e6});
+      await contract.methods
+        .setUser(state.input.user.name, state.input.user.avatarUrl)
+        .send({ from: accounts[0], gas: 1e6 });
       router.push("/");
     }
   },

@@ -11,7 +11,9 @@
     "migrate-reset": "truffle migrate --network ganache --reset"
   },
   "dependencies": {
+    "ipfs": "^0.31.4",
     "moment": "^2.22.2",
+    "string_decoder": "^1.1.1",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
