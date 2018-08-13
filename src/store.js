@@ -77,30 +77,17 @@ export default new Vuex.Store({
         .send({ from: accounts[0], gas: 1e6 });
       router.push("/");
     },
-    uploadImage({ commit }, event) {
+    uploadAvatarImage({ commit }, event) {
       event.preventDefault();
       const file = event.target.files[0];
-      const reader = new FileReader();
 
-      reader.onload = function() {
-        const bytes = new Uint8Array(reader.result);
-
-        ipfs.files.add(Buffer.from(bytes), (err, res) => {
-          if (err || !res) {
-            alert("ipfs error: " + err);
-            console.log(res);
-            return;
-          }
-
-          if (res[0] && res[0].hash) {
-            const avatarUrl = "https://ipfs.io/ipfs/" + res[0].hash;
-            console.log("successfully stored");
-            commit("setInputUserAvatarUrl", avatarUrl);
-          }
-        });
-      };
-
-      reader.readAsArrayBuffer(file);
+      ipfs.upload(file, function(err, url) {
+        if (err) {
+          alert("ipfs error: " + err);
+        } else {
+          commit("setInputUserAvatarUrl", url);
+        }
+      });
     }
   },
   getters: {

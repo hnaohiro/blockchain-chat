@@ -12,11 +12,11 @@
       <div class="form-group">
         <label>Avatar</label>
         <div class="input-group">
-          <input type="text" class="form-control" :value="user.avatarUrl" @input="updateInputUserAvatarUrl">
+          <input type="text" class="form-control" :value="user.avatarUrl" @input="updateInputUserAvatarUrl" title="avatar-url">
           <label class="input-group-btn">
             <span class="btn btn-default">
               Choose File
-              <input type="file" class="form-control" accept="image/*" style="display:none" @change="uploadImage">
+              <input type="file" class="form-control" accept="image/*" style="display:none" @change="uploadAvatarImage">
             </span>
           </label>
         </div>
@@ -60,8 +60,8 @@ export default {
     ...mapActions([
       "updateInputUserName",
       "updateInputUserAvatarUrl",
-      "saveUser",
-      "uploadImage"
+      "uploadAvatarImage",
+      "saveUser"
     ])
   },
   computed: {
