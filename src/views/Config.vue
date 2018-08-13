@@ -12,7 +12,7 @@
       <div class="form-group">
         <label>Avatar</label>
         <div class="input-group">
-          <input type="text" class="form-control" :value="user.avatarUrl" @input="updateInputUserAvatarUrl" title="avatar-url">
+          <input type="text" class="form-control" :value="user.avatarUrl" @input="updateInputUserAvatarUrl">
           <label class="input-group-btn">
             <span class="btn btn-default">
               Choose File

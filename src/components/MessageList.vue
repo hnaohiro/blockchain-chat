@@ -10,7 +10,12 @@
           <span class="direct-chat-timestamp pull-right">{{ message.timestamp | timestamp2date }}</span>
         </div>
         <img class="direct-chat-img" :src="message.user.avatarUrl | userAvatar">
-        <div class="direct-chat-text">{{ message.text }}</div>
+        <div class="direct-chat-text">
+          <span v-if="message.messageType == 0">{{ message.text }}</span>
+          <span v-if="message.messageType == 1">
+            <img :src="message.imageUrl" />
+          </span>
+        </div>
       </div>
     </div>
   </div>

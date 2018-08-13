@@ -70,6 +70,23 @@ export default new Vuex.Store({
         alert("please input text");
       }
     },
+    async sendImage({ dispatch }, event) {
+      console.log("sendImage");
+      event.preventDefault();
+      const file = event.target.files[0];
+
+      ipfs.upload(file, async function(err, url) {
+        if (err) {
+          alert("ipfs error: " + err);
+        } else {
+          const accounts = await web3.eth.getAccounts();
+          await contract.methods
+            .sendImage(url)
+            .send({ from: accounts[0], gas: 1e6 });
+          dispatch("fetchMessages");
+        }
+      });
+    },
     async saveUser({ state }) {
       const accounts = await web3.eth.getAccounts();
       await contract.methods

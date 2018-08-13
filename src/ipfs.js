@@ -26,4 +26,4 @@ export default {
 
     reader.readAsArrayBuffer(file);
   }
-}
+};
