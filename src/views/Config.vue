@@ -11,15 +11,21 @@
 
       <div class="form-group">
         <label>Avatar</label>
-
         <div class="input-group">
-          <input type="text" class="form-control">
+          <input type="text" class="form-control" :value="user.avatarUrl" @input="updateInputUserAvatarUrl">
           <label class="input-group-btn">
             <span class="btn btn-default">
               Choose File
-              <input type="file" class="form-control" style="display:none" @change="selectFile">
+              <input type="file" class="form-control" accept="image/*" style="display:none" @change="uploadImage">
             </span>
           </label>
+        </div>
+      </div>
+
+      <div class="form-group" v-if="user.avatarUrl">
+        <label>Avatar Preview</label>
+        <div>
+          <img :src="user.avatarUrl" class="avatar-preview" />
         </div>
       </div>
     </div>
@@ -34,12 +40,14 @@
   </div>
 </template>
 
+<style>
+.avatar-preview {
+  width: 128px;
+}
+</style>
+
 <script>
 import { mapActions, mapGetters } from "vuex";
-
-import IPFS from "ipfs";
-const node = new IPFS({ repo: String(Math.random() + Date.now()) });
-node.once("ready", () => console.log("IPFS node is ready"));
 
 export default {
   name: "config",
@@ -49,33 +57,12 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["updateInputUserName", "saveUser"]),
-    selectFile(e) {
-      e.preventDefault();
-      const files = e.target.files;
-      const file = files[0];
-
-      const reader = new FileReader();
-
-      reader.onload = function() {
-        const bytes = new Uint8Array(reader.result);
-        console.log(bytes);
-
-        node.files.add(Buffer.from(bytes), (err, res) => {
-          if (err || !res) {
-            return console.error("ipfs add error", err, res);
-          }
-
-          res.forEach(function(file) {
-            if (file && file.hash) {
-              console.log("successfully stored", file.hash);
-            }
-          });
-        });
-      };
-
-      reader.readAsArrayBuffer(file);
-    }
+    ...mapActions([
+      "updateInputUserName",
+      "updateInputUserAvatarUrl",
+      "saveUser",
+      "uploadImage"
+    ])
   },
   computed: {
     ...mapGetters({

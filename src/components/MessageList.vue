@@ -9,7 +9,7 @@
           </span>
           <span class="direct-chat-timestamp pull-right">{{ message.timestamp | timestamp2date }}</span>
         </div>
-        <img class="direct-chat-img" :src="message.user.avatar | userAvatar">
+        <img class="direct-chat-img" :src="message.user.avatarUrl | userAvatar">
         <div class="direct-chat-text">{{ message.text }}</div>
       </div>
     </div>
