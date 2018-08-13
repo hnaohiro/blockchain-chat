@@ -71,21 +71,21 @@ export default new Vuex.Store({
       }
     },
     async sendImage({ dispatch }, event) {
-      console.log("sendImage");
       event.preventDefault();
       const file = event.target.files[0];
 
-      ipfs.upload(file, async function(err, url) {
-        if (err) {
-          alert("ipfs error: " + err);
-        } else {
+      ipfs
+        .upload(file)
+        .then(async (url) => {
           const accounts = await web3.eth.getAccounts();
           await contract.methods
             .sendImage(url)
             .send({ from: accounts[0], gas: 1e6 });
           dispatch("fetchMessages");
-        }
-      });
+        })
+        .catch(err => {
+          alert("ipfs error: " + err);
+        });
     },
     async saveUser({ state }) {
       const accounts = await web3.eth.getAccounts();
@@ -98,13 +98,14 @@ export default new Vuex.Store({
       event.preventDefault();
       const file = event.target.files[0];
 
-      ipfs.upload(file, function(err, url) {
-        if (err) {
-          alert("ipfs error: " + err);
-        } else {
+      ipfs
+        .upload(file)
+        .then(url => {
           commit("setInputUserAvatarUrl", url);
-        }
-      });
+        })
+        .catch(err => {
+          alert("ipfs error: " + err);
+        });
     }
   },
   getters: {
