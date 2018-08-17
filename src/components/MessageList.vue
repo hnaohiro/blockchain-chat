@@ -42,18 +42,13 @@ export default {
     userAvatar(value) {
       return value ? value : require("../assets/no-name.png");
     }
-  },
-  updated() {
-    // const elem = this.$el.querySelector(".direct-chat-messages");
-    // console.log(elem.scrollTop, elem.clientHeight);
-    // elem.scrollTop = 1000 + elem.clientHeight;
   }
 };
 </script>
 
 <style scoped lang="scss">
 .direct-chat-messages {
-  height: 500px;
+  height: 400px;
 }
 .user-name {
   color: #555;
