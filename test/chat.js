@@ -13,7 +13,7 @@ contract("Chat", function(accounts) {
       await chat.sendText(input);
 
       let message = await chat.getMessage(0);
-      assert.equal(message[0], 1);
+      assert.equal(message[0], 0);
       assert.equal(message[1], accounts[0]);
       assert.equal(message[2], 0);
       assert.equal(message[3], input);
@@ -34,7 +34,7 @@ contract("Chat", function(accounts) {
       await chat.sendImage(imageUrl);
 
       let message = await chat.getMessage(0);
-      assert.equal(message[0], 1);
+      assert.equal(message[0], 0);
       assert.equal(message[1], accounts[0]);
       assert.equal(message[2], 1);
       assert.equal(message[3], "");

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="direct-chat-messages">
-      <div class="direct-chat-msg" v-for="message of messages" v-bind:key="message.id">
+      <div class="direct-chat-msg" v-for="message of messages" v-bind:key="message.index">
         <div class="direct-chat-info clearfix">
           <span class="direct-chat-name pull-left">
             <span class="user-name">{{ message.user.name | userName }}</span>
@@ -48,7 +48,7 @@ export default {
 
 <style scoped lang="scss">
 .direct-chat-messages {
-  height: 100%;
+  height: 500px;
 }
 .user-name {
   color: #555;

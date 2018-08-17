@@ -4,6 +4,7 @@ import contract from "./contract";
 import web3 from "./web3";
 import router from "./router";
 import ipfs from "./ipfs";
+import "./event";
 
 Vue.use(Vuex);
 
@@ -58,14 +59,13 @@ export default new Vuex.Store({
     async updateInputUserAvatarUrl({ commit }, event) {
       commit("setInputUserAvatarUrl", event.target.value);
     },
-    async sendText({ commit, state, dispatch }) {
+    async sendText({ commit, state }) {
       if (state.input.text) {
         const accounts = await web3.eth.getAccounts();
         await contract.methods
           .sendText(state.input.text)
           .send({ from: accounts[0], gas: 1e6 });
         commit("setInputText", "");
-        dispatch("fetchMessages");
       } else {
         alert("please input text");
       }
@@ -76,7 +76,7 @@ export default new Vuex.Store({
 
       ipfs
         .upload(file)
-        .then(async (url) => {
+        .then(async url => {
           const accounts = await web3.eth.getAccounts();
           await contract.methods
             .sendImage(url)
