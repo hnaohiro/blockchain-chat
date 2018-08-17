@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="direct-chat-messages">
+    <div class="direct-chat-messages" v-chat-scroll>
       <div class="direct-chat-msg" v-for="message of messages" v-bind:key="message.index">
         <div class="direct-chat-info clearfix">
           <span class="direct-chat-name pull-left">
@@ -42,6 +42,11 @@ export default {
     userAvatar(value) {
       return value ? value : require("../assets/no-name.png");
     }
+  },
+  updated() {
+    // const elem = this.$el.querySelector(".direct-chat-messages");
+    // console.log(elem.scrollTop, elem.clientHeight);
+    // elem.scrollTop = 1000 + elem.clientHeight;
   }
 };
 </script>

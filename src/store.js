@@ -5,8 +5,10 @@ import web3 from "./web3";
 import router from "./router";
 import ipfs from "./ipfs";
 import "./event";
+import VueChatScroll from "vue-chat-scroll";
 
 Vue.use(Vuex);
+Vue.use(VueChatScroll);
 
 export default new Vuex.Store({
   state: {
